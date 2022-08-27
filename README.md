@@ -26,6 +26,7 @@ docker-compose down
 react : 
 http://localhost:8080/
 <br>
+※reactの初期画面はdocker-compose upしてから数秒かかる（理由は不明) <br>
 
 api : http://localhost:3000/
 <br>
