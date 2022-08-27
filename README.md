@@ -18,6 +18,9 @@ exit
 
 //docker起動
 docker-compose up -d
+
+//dockerを終了するとき
+docker-compose down
 ``` 
 
 react : 
@@ -34,4 +37,17 @@ DB_NAME=sake
 DB_USER=root
 DB_PASS=password
 TZ=Asia/Tokyo
+```
+
+## マイグレーションファイルを構築した時(sequlizeを調べてみてください)
+```
+// マイグレート
+docker-compose exec api /bin/bash
+npx sequelize-cli db:migrate
+exit
+
+//マイグレーションファイルとモデルファイルの作成コマンド
+docker-compose exec api /bin/bash
+npx sequelize-cli model:generate --name <モデル名> --attributes <プロパティを設定する 例name:string,done:boolean>
+exit
 ```
