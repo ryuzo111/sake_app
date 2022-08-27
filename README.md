@@ -38,6 +38,7 @@ DB_USER=root
 DB_PASS=password
 TZ=Asia/Tokyo
 ```
+portは3306
 
 ## マイグレーションファイルを構築した時(sequlizeを調べてみてください)
 ```
