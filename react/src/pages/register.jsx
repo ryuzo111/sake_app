@@ -20,7 +20,14 @@ function Login() {
                 />
                 <Box backdropFilter='blur(6px)' w={boxWidthSize} h={boxHeightSize} textAlign='center' >
                     <Box w={inputWidthSize} m='auto'>
-                        <Text color="white" textAlign="left" py="2">Username</Text>
+                        <Text color="white" textAlign="left" py="2">Username(ニックネーム可)</Text>
+                        <Input
+                            type="email"
+                            placeholder="beerくん"
+                            w={inputWidthSize}
+                            bgColor="white"
+                        ></Input>
+                        <Text color="white" textAlign="left" py="2">Email</Text>
                         <Input
                             type="email"
                             placeholder="test@test.com"
@@ -29,8 +36,10 @@ function Login() {
                         ></Input>
                         <Text color="white" py="2" textAlign="left">Password</Text>
                         <Input bgColor="white" type="password"></Input>
-                        <Button colorScheme="purple" w={inputWidthSize} my="4">LOGIN</Button>
-                        <ChakraLink as={RouterLink} to='/register' color="white" fontSize="sm">新規会員登録はこちら</ChakraLink>
+                        <Text color="white" py="2" textAlign="left">Password (確認)</Text>
+                        <Input bgColor="white" type="password"></Input>
+                        <Button colorScheme="purple" w={inputWidthSize} my="4">REGISTER</Button>
+                        <ChakraLink as={RouterLink} to='/login' color="white" fontSize="sm">ログインはこちら</ChakraLink>
                     </Box>
                 </Box>
             </Flex>
@@ -42,6 +51,6 @@ function Login() {
 //レスポンシブ対応 参考 https://zenn.dev/terrierscript/books/2021-05-chakra-ui/viewer/1-5-1-responsive
 const inputWidthSize = { base: "20em", sm: "sm", md: "md", lg: "lg", xl: "xl"};
 const boxWidthSize = { base: "22em", sm: "25em", md: "35em", lg: "40em", xl: "44em"};
-const boxHeightSize = { base: "17em", sm: "17em", md: "17em", lg: "17em", xl: "17em"};
+const boxHeightSize = { base: "27em", sm: "27em", md: "27em", lg: "27em", xl: "27em"};
 
 export default Login;
