@@ -53,3 +53,5 @@ docker-compose exec api /bin/bash
 npx sequelize-cli model:generate --name <モデル名> --attributes <プロパティを設定する 例name:string,done:boolean>
 exit
 ```
+sequelize
+https://sequelize.org/docs/v7/other-topics/other-data-types/
