@@ -25,7 +25,8 @@ services:
 
     #使用するネットワーク
     networks:
-      - backend
+      backend:
+        ipv4_address: 172.28.1.5
 
   api:
     image: node:14.16.0-buster
@@ -55,7 +56,8 @@ services:
     command: npm run dev
 
     networks:
-      - backend
+      backend:
+        ipv4_address: 172.28.1.10
 
     #依存関係（apiコンテナより先にdbコンテナが起動するように設定）
     depends_on:
@@ -79,6 +81,11 @@ services:
 
 networks:
   backend:
+    driver: bridge
+    name: app_net
+    ipam:
+      config:
+        - subnet: 172.28.1.0/24
 
 volumes:
   mysqldata:
