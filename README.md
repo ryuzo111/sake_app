@@ -3,7 +3,7 @@
 ## 環境構築
 ```
 // apiサーバー
-cd sake
+cd sake_app
 docker-compose run --rm --no-deps api /bin/bash
 npm install -g npm
 npm install
