@@ -27,14 +27,16 @@ router.post('/register', [
   }),
   check('passwordConfirm').isEmpty()
 ],function(req, res, next) {
-  systemLogger.debug("ここきている");
   register(req, res, next);
 });
 
 //新規会員登録の処理
 const register = async (req, res, next) => {
+  const obj = JSON.parse(JSON.stringify(req.body)); 
+
+  systemLogger.debug(obj.name);
   var name = req.body['name'];
-  var mail = req.body['mail'];
+  var mail = req.body.mail;
   var password = req.body['password'];
   var passwordConfirm = req.body['passwordConfirm'];
 
@@ -49,7 +51,7 @@ const register = async (req, res, next) => {
   }  
 
   let hashed_password = bcrypt.hashSync(password, 10);
-  db.User.create({
+  await db.User.create({
     name: name,
     email: mail,
     password: hashed_password,

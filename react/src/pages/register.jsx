@@ -3,28 +3,42 @@ import { Button, Text, Image, Center, Box, Input, Flex} from '@chakra-ui/react'
 import { Link as ChakraLink } from "@chakra-ui/react"
 import { Link as RouterLink } from "react-router-dom"
 import axios from "axios"
-import {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 //image
 import logoImage from "../common/public/logo.png";
 import loginBackground from "../common/public/loginBackground.png";
 
-function Login() {
+function Register() {
     const [name, setName] = useState("");
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
-    const handleFormSubmit = (event) => {
-        console.log("テスト");
-        axios.post('http://172.28.1.10/users/register', {
-            name: name,
-            mail: mail,
-            password: password,
-            passwordConfirm: passwordConfirm
-        })
+
+    const client =  axios.create({
+        baseURL: 'http://localhost:3000',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    });
+
+    const handleFormSubmit = () => {
+        console.log(mail);
+        console.log("テスト2");
+        var params = new URLSearchParams();
+        params.append('name', name);
+        params.append('mail', mail);
+        params.append('password', password);
+        params.append('passwordConfirm', passwordConfirm);
+        try { 
+            client.post("/users/register", params)
             .then((res) => {console.log(res); })
             .catch(console.error);
-    }
+        } catch (e) {
+            console.log("エラーを吐いている");
+            console.log(e);
+        }
+        }
 
     return (
     <Box w='100%' h='100vh' bgSize='cover' bgImage={loginBackground}>
@@ -68,7 +82,7 @@ function Login() {
                             type="password"
                             onChange={(e) => setPasswordConfirm(e.target.value)}
                         ></Input>
-                        <Button type="submit" colorScheme="purple" w={inputWidthSize} my="4">REGISTER</Button>
+                        <Button type="submit" colorScheme="purple" w={inputWidthSize} my="4" onClick={handleFormSubmit}>REGISTER</Button>
                         <ChakraLink as={RouterLink} to='/login' color="white" fontSize="sm">ログインはこちら</ChakraLink>
 
                         </form>
@@ -86,4 +100,4 @@ const inputWidthSize = { base: "20em", sm: "sm", md: "md", lg: "lg", xl: "xl"};
 const boxWidthSize = { base: "22em", sm: "25em", md: "35em", lg: "40em", xl: "44em"};
 const boxHeightSize = { base: "27em", sm: "27em", md: "27em", lg: "27em", xl: "27em"};
 
-export default Login;
+export default Register;
