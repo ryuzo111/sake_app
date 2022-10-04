@@ -17,24 +17,31 @@ const bcrypt = require('bcryptjs');
 
 
 router.post('/register', [
-  check('name').isEmpty(),
-  check('mail').isEmpty().isEmail(),
-  check('password').isEmpty().custom((value, { req }) => {
+  check('name').not().isEmpty().withMessage("必須項目です"),
+  check('mail').isEmail().withMessage("正しいメールアドレスにしてください").not().isEmpty().withMessage("必須項目です"),
+  check('password').not().isEmpty().withMessage("必須項目です").custom((value, { req }) => {
     if (req.body.password !== req.body.passwordConfirm) {
       throw new Error('パスワード(確認)と一致しません');
     }
     return true
   }),
-  check('passwordConfirm').isEmpty()
+  check('passwordConfirm').not().isEmpty().withMessage("必須項目です")
 ],function(req, res, next) {
+
+  systemLogger.debug("てすとっっt");
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()) { // バリデーション失敗
+    systemLogger.debug(errors);
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   register(req, res, next);
 });
 
 //新規会員登録の処理
 const register = async (req, res, next) => {
-  const obj = JSON.parse(JSON.stringify(req.body)); 
 
-  systemLogger.debug(obj.name);
   var name = req.body['name'];
   var mail = req.body.mail;
   var password = req.body['password'];
@@ -58,6 +65,7 @@ const register = async (req, res, next) => {
   });
 
   var message = "新規会員登録に成功";
+  systemLogger.debug(message);
   res.json(message);
 };
 
